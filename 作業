@@ -1,0 +1,99 @@
+傳值呼叫(call by value)  實引數何虛引數分別作用於不同記憶體，所以可以防止變數被更改
+//File Name : CallByValue.java
+　　　// simple types are passed by value
+　　　class Test {
+　　　　void meth ( int j , int k ) {
+　　　　　 j  *= 2 ;
+　　　　　 k  /= 2 ;
+　　　　}
+　　　}
+
+　　　class CallByValue {
+　　　　　public  static  void  main ( String args[ ] ) {
+　　　　　　   Test  obj  =  new  Test ( )
+　　　　　　   int  j = 18 , k = 28 ;
+　　　　　　   System.out.println ( " j  and  k  before call : " + j + "  " + k ) ;
+　　　　　　   obj.meth ( j , k ) ;
+　　　　　　   System.out.println ( "  j  and  k after call : " + j + "  " + k )
+　　　　　}
+　　　 }
+結果
+　j  and k before call : 18  28
+　j  and k after  call : 18 28
+
+參考呼叫(call by reference)實引數和虛引數使用同一記憶體，可透過該引數傳回而改變
+
+// File Name : CallByRef.java
+　　　// Object are passed by reference
+
+　　　class Test  {
+　　　　　int  a , b ;
+
+　　　　　Test ( int  j  , int  k ) {
+　　　　　　　a  =  j ;
+　　　　　　　b  =  k ;
+　　　　　}
+
+　　　void  meth ( Test  o )  {     // pass an object
+　　　　　o.a  *=  2 ;
+　　　　　o.b  /=  2 ;
+　　　　}
+　　　}
+
+　　　class  CallByRef  {
+　　　　　public  static  void  main ( String  args [ ] ) {
+Test  obj  = new Test ( 18,28 ) ;
+　　　　　System.out.println ( " obj.a  and obj.b  before  call : "+ obj.a + "  " + obj.b ) ;
+obj.meth ( obj ) ;
+　　　　　System.out.println ( " obj.a  and obj.b  after  call : " + obj.a + "  " + obj.b ) ;
+　　　　　}
+　　　}
+
+結果
+obj.a  and  obj.b  before call :  18  28
+obj.a  and  obj.b  after  call :  36  14
+
+方法多載 指在一個類別(class)中，定義多個名稱相同，但參數(Parameter)不同的方法(Method)。
+
+void methed(){} 
+int methed(){}                 //不能多載:雖然傳回質不同但引數個數相同
+void methed(int a){}           //成功多載:比第58行的方法多一個引數
+void methed(int b){}           //不能多載:引數名稱不同但和第60行的型別和個數相同
+void methed(String s){}        //成功多載:雖然和第60行引數個數相同但型別不同
+void methed(int a ,String s){} //成功多載:引數個數和型別都不同
+void methed(String s ,int a){} //成功多載:和第63行引數個數和型別都相同但順序不同
+
+請使用靜態遞迴方法算出費氏數列
+
+import java.util.HashMap;
+import java.util.Map;
+ 
+public class DynamicProgramming {
+    static Map<Integer, Long> map = new HashMap<Integer, Long>() {{ put(0, 0L); put(1, 1L); }};
+    public static long Fibonacci(int n)
+    {
+        if (map.containsKey(n))
+            return map.get(n);
+        map.put(n, Fibonacci(n - 1) + Fibonacci(n - 2));
+        return map.get(n);
+    }
+}
+
+請使用 iterative方法算出費氏數列。
+
+public class Iterative {
+    public static long Fibonacci(int n)
+    {
+        long v1 = 0;
+        long v2 = 1;
+        long result = n;
+        for (int i = 2; i <= n; ++i)
+        {
+            result = v2 + v1;
+            v1 = v2;
+            v2 = result;
+        }
+        return result;
+    }
+}
+
